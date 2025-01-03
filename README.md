@@ -1,5 +1,6 @@
 # kh_tex_sep
-khmer text clusters with bbox
+khmer text clusters with *correct* bbox 
 
-tldr:
+tldr ^^^
+
 ![tldr](khmer_text_with_boxes.png)
