@@ -12,9 +12,7 @@ clusters = renderer.render_text(test_text, "khmer_text_with_boxes.png")
 
 '''
 
-
-
-from PIL import ImageFont, ImageDraw
+from PIL import Image,ImageFont, ImageDraw
 import os 
 import unicodedata
 from typing import List, Dict, Tuple
@@ -109,8 +107,8 @@ class KhmerTextClusterGenerator:
         width = bbox[2] - bbox[0]
         
         return (x + bbox[0], y, x + bbox[2], y + max_height)
-
-    def render_text(self, text, output_path="output.png") -> List[Dict[str, any]]:
+            
+    def render_text(self, text,  output_path: str, save_img: bool = False):
         """
         Render Khmer text and draw bounding boxes for each character cluster.
         All bounding boxes will have the same height as the tallest cluster.
@@ -147,7 +145,8 @@ class KhmerTextClusterGenerator:
             
             # Get and draw bounding box with normalized height
             bbox = self.get_char_bbox(cluster, x, y, max_height)
-            draw.rectangle(bbox, outline='red', width=1)
+            if save_img:
+                draw.rectangle(bbox, outline='red', width=1)
             
             # Store cluster information
             cluster_info.append({
@@ -161,5 +160,6 @@ class KhmerTextClusterGenerator:
             x += self.font.getlength(cluster_text)
         
         # Save the image
-        image.save(output_path)
-        return cluster_info
+        if save_img:
+            image.save(output_path)
+        return {"cluster_info": cluster_info, "rendered_image": image}
