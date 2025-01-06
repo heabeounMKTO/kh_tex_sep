@@ -36,7 +36,16 @@ class KhmerTextClusterGenerator:
         i = 0
         while i < len(text):
             char = text[i]
-            
+            if char == '\u17AB':
+                # If there's an existing cluster, save it
+                if current_cluster:
+                    clusters.append(current_cluster)
+                # Create a new cluster with just this character
+                clusters.append([char])
+                current_cluster = []
+                i += 1
+                continue 
+
             # start a new cluster if we're at a base consonant
             if not current_cluster or self.is_base_consonant(char):
                 if current_cluster:
