@@ -273,4 +273,3 @@ class KhmerTextClusterGenerator:
             "cluster_info": cluster_info,
             "rendered_image": result_image
         }
-
